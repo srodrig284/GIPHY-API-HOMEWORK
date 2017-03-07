@@ -9,7 +9,8 @@ var initialTopics = ["Dog and Cat",
                      "Grandma",
                      "Little Girl",
                      "Cat",
-                     "Dog"];
+                     "Dog",
+                     "Roomba Cat"];
 
 
 $(document).ready(function(){
