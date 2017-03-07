@@ -1,0 +1,9 @@
+.panel-style{
+    width: 300px;
+    float: left;
+    overflow: hidden;
+}
+
+.topic-image{
+    width:250px;
+}

@@ -4,9 +4,6 @@
 * 2017 UCF Coding Bootcamp
 */
 
-var userInput = "";   // variable to grab the input from user
-
-var queryURL = "http://api.giphy.com/v1/gifs/search?q=" + userInput + "&limit=10&fmt=json&api_key=dc6zaTOxFJmzC";
 
 var initialTopics = ["Dog and Cat",
                      "Grandma",
@@ -27,15 +24,58 @@ $(document).ready(function(){
             .addClass('list-group-item')
             .attr('type', 'button')
             .attr('data-topic', sanitizedTopic)
-            .attr('status', 'still')
-
             .text(topic)
-            //.on('click', function(){
-            //    retrieveGiphy($(this).data('data-topic'));
-            //})
+            .on('click', function(){
+                retrieveGiphy($(this).attr('data-topic'));
+            })
             .prependTo("#buttons-view");
-    }
+    };
 
+    // retrieveGiphy will parse the data received and display the giphy
+    function retrieveGiphy(topic)
+    {
+        var queryURL = "http://api.giphy.com/v1/gifs/search?q=" + topic + "+funny+video&limit=10&api_key=dc6zaTOxFJmzC";
+
+        searchTopic = topic;
+        $.ajax({
+            url: queryURL,
+            method: 'GET'
+        })
+            .done(function(response) {
+                // clear giphy area
+                $('#giphy-view').empty();
+
+                $.each(response.data, function(index, value){
+                    var charPic = $('<img>')
+                        .addClass('topic-image')
+                        .attr('src', value.images.original_still.url)
+                        .data('still-url', value.images.original_still.url)
+                        .data('looping-url', value.images.original.url)
+                        .data('image-state', 'still');
+
+                    var charRating = $('<div>')
+                        .addClass('panel-footer text-center')
+                        .html("Rating: " + value.rating);
+
+                    var panelBody = $('<div>')
+                        .addClass('panel-body')
+                        .append(charPic);
+
+                    var panelDiv =  $('<div>')
+                        .addClass('panel panel-default panel-style')
+                        .append(panelBody, charRating);
+
+                    $('#giphy-view').append(panelDiv);
+
+                });
+        });
+    };
+
+    // formatForSearch will replace whitespace with '+'.
+    // This will prepare the user's input to be appended to the url search string
+    function formatForSearch(topic){
+        return topic.replace(/\s/g, "+");
+    };
 
 
 
