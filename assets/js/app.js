@@ -51,7 +51,17 @@ $(document).ready(function(){
                         .attr('src', value.images.original_still.url)
                         .data('still-url', value.images.original_still.url)
                         .data('looping-url', value.images.original.url)
-                        .data('image-state', 'still');
+                        .data('image-state', 'still')
+                        .on('click', function(){
+                            if($(this).data('image-state') === 'still'){
+                                $(this).data('image-state', 'loop'); // change state
+                                $(this).attr('src', $(this).data('looping-url'));
+                            } else
+                            {
+                                $(this).data('image-state', 'still');  // change state
+                                $(this).attr('src', $(this).data('still-url'));
+                            }
+                        });
 
                     var charRating = $('<div>')
                         .addClass('panel-footer text-center')
@@ -78,7 +88,17 @@ $(document).ready(function(){
     };
 
 
+    // This function handles events where the add topic button is clicked
+    $("#add-topic-button").on("click", function(event) {
+        event.preventDefault();
+        // This line of code will grab the input from the textbox
+        var newTopic = $("#add-topic-input").val().trim();
 
+        $("#add-topic-input").val("");
+
+        // Calling renderButtons which handles the processing of our movie array
+        renderButtons(newTopic);
+    });
 
 
 // Calling the renderButtons function to display the intial buttons
