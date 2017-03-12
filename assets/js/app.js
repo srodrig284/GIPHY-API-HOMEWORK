@@ -36,7 +36,7 @@ $(document).ready(function(){
     // retrieveGiphy will parse the data received and display the giphy
     function retrieveGiphy(topic)
     {
-        var queryURL = "http://api.giphy.com/v1/gifs/search?q=" + topic + "+funny+video&limit=10&api_key=dc6zaTOxFJmzC";
+        var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + topic + "+funny+video&limit=10&api_key=dc6zaTOxFJmzC";
 
         searchTopic = topic;
         $.ajax({
