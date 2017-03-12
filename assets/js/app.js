@@ -10,7 +10,7 @@ var initialTopics = ["Dog and Cat",
                      "Little Girl",
                      "Cat",
                      "Dog",
-                     "Roomba Cat"];
+    "Roomba Cat"];
 
 
 $(document).ready(function(){
@@ -27,6 +27,7 @@ $(document).ready(function(){
             .attr('data-topic', sanitizedTopic)
             .text(topic)
             .on('click', function(){
+                event.preventDefault();
                 retrieveGiphy($(this).attr('data-topic'));
             })
             .prependTo("#buttons-view");
